@@ -1023,6 +1023,9 @@ lbm_value ext_load_native_lib(lbm_value *args, lbm_uint argn) {
 		cif.cif.sem_wait_to = lib_sem_wait_to;
 		cif.cif.sem_reset = lib_sem_reset;
 
+		// Motor control continued
+		cif.cif.mc_brake_by_shorting_phases = mc_interface_brake_by_shorting_phases;
+
 		lib_init_done = true;
 	}
 

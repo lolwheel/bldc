@@ -656,6 +656,9 @@ typedef struct {
 	void (*sem_signal)(lib_semaphore);
 	bool (*sem_wait_to)(lib_semaphore, systime_t); // Returns false on timeout
 	void (*sem_reset)(lib_semaphore);
+
+	// Braking by shorting motor phases
+	void (*mc_brake_by_shorting_phases)(void);
 } vesc_c_if;
 
 typedef struct {
