@@ -784,6 +784,9 @@ void mc_interface_set_handbrake_rel(float val) {
  * Implemented only in FOC control mode.
  */
 void mc_interface_brake_by_shorting_phases() {
+	if (mc_interface_try_input()) {
+		return;
+	}
 	if (motor_now()->m_conf.motor_type != MOTOR_TYPE_FOC) {
 		return;
 	}
@@ -955,7 +958,8 @@ bool mc_interface_wait_for_motor_release(float timeout) {
 
 	case MOTOR_TYPE_FOC:
 		while (UTILS_AGE_S(time_start) < timeout) {
-			if (mcpwm_foc_get_state() == MC_STATE_OFF) {
+			const mc_state state = mcpwm_foc_get_state();
+			if (state == MC_STATE_OFF || state == MC_STATE_FULL_BRAKE) {
 				res = true;
 				break;
 			}
