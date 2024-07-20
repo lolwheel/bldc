@@ -657,11 +657,8 @@ void foc_run_fw(motor_all_state_t *motor, float dt) {
 		float duty_abs = motor->m_duty_abs_filtered;
 
 		if (motor->m_conf->foc_fw_duty_start < 0.99 &&
-				duty_abs > motor->m_conf->foc_fw_duty_start * motor->m_conf->l_max_duty) {
-			fw_current_now = utils_map(duty_abs,
-					motor->m_conf->foc_fw_duty_start * motor->m_conf->l_max_duty,
-					motor->m_conf->l_max_duty,
-					0.0, motor->m_conf->foc_fw_current_max);
+				motor->m_iq_set > 1) {
+			fw_current_now = motor->m_conf->foc_fw_current_max;
 
 			// m_current_off_delay is used to not stop the modulation too soon after leaving FW. If axis decoupling
 			// is not working properly an oscillation can occur on the modulation when changing the current
