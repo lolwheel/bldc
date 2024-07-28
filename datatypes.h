@@ -422,6 +422,7 @@ typedef struct {
 	float foc_current_kp;
 	float foc_current_ki;
 	float foc_f_zv;
+	float foc_f_zv_bandwidth;
 	float foc_dt_us;
 	float foc_encoder_offset;
 	bool foc_encoder_inverted;
